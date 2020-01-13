@@ -1,176 +1,141 @@
-/* ----------------------------------------------- */
-/*                  Main Stuff                     */
-/* ----------------------------------------------- */
+.card-header {
+    background-color: white;
+}
 
-html {
-	background-color: #EDF5F8;
-	overflow: scroll;
+.header-text {
+    font-size: calc(30px + 1vw)
+}
+
+.main-odo {
+    font-size: calc(43px + 2vw)
+}
+
+body {
     overflow-x: hidden;
+  }
+.text-center {
+  text-align: center;
 }
 
-::-webkit-scrollbar {
-    width: 0px;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
-}
-/* Optional: show position indicator in red */
-::-webkit-scrollbar-thumb {
-    background: #FF0000;
+.video-title {
+  font-size: calc(10px + 2vw);
 }
 
-.row {
-	position: relative; 
-	left: 7%;
- }
+.difference-odo {
+  font-size: calc(20px + 1vw);
+}
 
-.title {
-	position: relative; 
-	top: -25px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+@media screen and (max-width: 800px) {
+  .difference-card {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .card-header {
+    display: none;
+  }
+  .header-text {
+    font-size: 0;
+  }
+
+  .card-head {
+    display: none;
+  }
+}
+
+  /* ----------------------------------------------- */
+/*                    Navbar                        */
+/* ----------------------------------------------- */
+
+ul {
+  list-style-type: none;
+  margin: -10px;
+  padding: 0;
+color: rgb(75, 28, 28);
+  width: 250px;
+  background-color: #fff;
+box-shadow: 7px 2px 28px -14px;
+  height: 100%;
+  position: fixed; 
+  overflow: hidden;
+}
+
+#shoppy-link {
+cursor:pointer;
+}
+
+.nav-title {
+padding: 0px;
+text-align: center;
+font-size: 13px;
+position: relative;
+top: 20px;
+left: -23px;
+}
+
+.nav-title2 {
+padding: 0px;
+text-align: center;
+font-size: 13px;
+position: relative;
+top: 20px;
+left: -53px;
+}
+
+.link {
+position: relative;
+left: 30px;
+top: 30px;
+font-size: 17px;
+}
+
+.link2 {
+position: relative;
+left: 27px;
+top: 30px;
+font-size: 17px;
+}
+
+.link:hover {
+color: red;
+}
+
+.link2:hover {
+color: red;
 }
 
 
- #card1 {
-	max-height: 610px;
- }
+.active {
+  background-color: #dddddd;
+  color: black;
+}
 
- #card2 {
-	position: relative; 
-	left: 38%; 
-	max-width: 350px;
- }
- @media screen and (max-width: 1816px) {
-	#card1 {
-	   max-height: 590px;
+@media screen and (max-width: 1500px) {
+  ul {
+		width: 200px;
 	}
- }
+}
 
- @media screen and (max-width: 1752px) {
-	#card1 {
-	   max-height: 570px;
+@media screen and (max-width: 1252px) {
+  ul {
+		width: 0px;
 	}
- }
+}
 
- @media screen and (max-width: 1670px) {
-	#card1 {
-	   max-height: 550px;
+
+@media screen and (max-width: 800px) {
+	ul {
+		width: 0px;
 	}
- }
-
- @media screen and (max-width: 1594px) {
-	#card1 {
-	   max-height: 530px;
+	
+	pre {
+		width: 0px;
+		display: none;
 	}
- }
-
- @media screen and (max-width: 1506px) {
-	#card1 {
-	   max-height: 510px;
+	
+	label {
+		width: 0px;
+		display: none;
 	}
- }
-
- @media screen and (max-width: 1410px) {
-	#card1 {
-	   max-height: 490px;
-	}
- }
-
- @media screen and (max-width: 1358px) {
-	#card1 {
-	   max-height: 490px;
-	}
-
-	#count1 {
-	   font-size: 80px;
-	}
-
-	#count2 {
-	   font-size: 80px;
-	}
-
-	@media screen and (max-width: 1313px) {
-	#card1 {
-	   max-height: 470px;
-	}
- }
-
- @media screen and (max-width: 1252px) {
-	#card1 {
-	   max-height: 450px;
-	}
- }
-
- @media screen and (max-width: 1213px) {
-
-	#count1 {
-	   font-size: 70px;
-	}
-
-	#count2 {
-	   font-size: 70px;
-	}
- }
-
- @media screen and (max-width: 1180px) {
-	#card1 {
-	   max-height: 430px;
-	}
- }
-
- @media screen and (max-width: 1103px) {
-	#card1 {
-	   max-height: 410px;
-	}
- }
-
- #count1 {
-	   font-size: 60px;
-	}
-
-	#count2 {
-	   font-size: 60px;
-	}
-
-	@media screen and (max-width: 1008px) {
-	#card1 {
-	   max-height: 390px;
-	}
- }
-
- @media screen and (max-width: 930px) {
-	#card1 {
-	   max-height: 370px;
-	}
-
-	#count1 {
-	   font-size: 50px;
-	}
-
-	#count2 {
-	   font-size: 50px;
-	}
- }
-
- @media screen and (max-width: 770px) {
-	#card1 {
-	   max-height: 340px;
-	}
-	#count1 {
-	   font-size: 40px;
-	}
-
-	#count2 {
-	   font-size: 40px;
-	}
- }
-
- @media screen and (max-width: 600px) {
-	#card1 {
-	   max-height: 475px;
-	}
-
- }
-
-
- }
+}

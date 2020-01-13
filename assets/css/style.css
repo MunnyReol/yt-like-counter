@@ -75,6 +75,10 @@ k {
 /*                    Container                            */
 /* ------------------------------------------------------  */
 
+.titlenav {
+  margin-top: -30px;
+}
+
 #subcount-container {
   position: absolute;
   max-width: 500px;
@@ -104,33 +108,78 @@ k {
 
 /* view */
 .fa-eye {
-	position: relative; left: -205px; top: 80px; font-size: 30px; margin-right: 15px; color: #00ccff;
+	position: relative; left: -280px; top: 80px; font-size: 30px; margin-right: 15px; color: #00ccff;
 }
 
 #view {
-  position: relative; top: 87px; left: -207px; font-size: 30px; letter-spacing: 1px;
+  position: relative; top: 87px; left: -285px; font-size: 30px; letter-spacing: 1px;
 }
 
 /* like */
 .fa-thumbs-up {
-  position: absolute; left: 48%; top: 76px; font-size: 30px; color: #00e600;
+  position: absolute; left: 34%; top: 76px; font-size: 30px; color: #00e600;
 }
 
 #like {
-  position: relative; left: 12px; top: 50px; align-items: center; justify-content: center; font-size: 30px; letter-spacing: 2px;
+  position: relative; left: -65px; top: 50px; align-items: center; justify-content: center; font-size: 30px; letter-spacing: 2px;
 }
 
 /* dislike */
 .fa-thumbs-down {
-  position: absolute; right: 25px; top: 78px; font-size: 30px; color: #ff0000;
+  position: absolute; right: 85px; top: 78px; font-size: 30px; color: #ff0000;
 }
 
 #dislike {
-  position: relative; left: 210px; top: 12px; align-items: center; justify-content: center; font-size: 30px; letter-spacing: 2px;
+  position: relative; left: 150px; top: 12px; align-items: center; justify-content: center; font-size: 30px; letter-spacing: 2px;
+}
+
+.fa-comment {
+  position: absolute; right: -111px; top: 75px; font-size: 30px; color: #1DA1F2;
+}
+
+#comment {
+  position: relative; left: 345px; top: -27px; align-items: center; justify-content: center; font-size: 30px; letter-spacing: 2px;
 }
 
 .title {
   line-height: 1.1; font-size: 30px;
+}
+
+@media (max-width: 803px) {
+    /* view */
+  .fa-eye {
+    position: relative; left: -280px; top: 80px; font-size: 30px; margin-right: 15px; color: #00ccff;
+  }
+
+  #view {
+    position: relative; top: 87px; left: -235px; font-size: 30px; letter-spacing: 1px;
+  }
+
+  /* like */
+  .fa-thumbs-up {
+    position: absolute; left: 34%; top: 76px; font-size: 30px; color: #00e600;
+  }
+
+  #like {
+    position: relative; left: -65px; top: 50px; align-items: center; justify-content: center; font-size: 30px; letter-spacing: 2px;
+  }
+
+  /* dislike */
+  .fa-thumbs-down {
+    position: absolute; right: 85px; top: 78px; font-size: 30px; color: #ff0000;
+  }
+
+  #dislike {
+    position: relative; left: 150px; top: 12px; align-items: center; justify-content: center; font-size: 30px; letter-spacing: 2px;
+  }
+
+  .fa-comment {
+    position: absolute; right: -111px; top: 75px; font-size: 30px; color: #1DA1F2;
+  }
+
+  #comment {
+    position: relative; left: 345px; top: -27px; align-items: center; justify-content: center; font-size: 30px; letter-spacing: 2px;
+  }
 }
 
 @media (max-width: 800px) {
@@ -140,6 +189,14 @@ k {
 	}
 	
 	.topnav {
+		display: none;
+  }
+  
+ .odometer-speed {
+		display: none;
+  }
+  
+  .check {
 		display: none;
 	}
 	
@@ -174,6 +231,18 @@ k {
 	#dislike {
 		top: -33px;
 		left: 230px;
+		font-size: 50px;
+  }
+  
+  #comment {
+		top: 70px;
+		left: -10px;
+		font-size: 50px;
+  }
+  
+  .fa-comment {
+    left: -132px;
+    top: 240px;
 		font-size: 50px;
 	}
 	
@@ -278,14 +347,14 @@ k {
 #square-rainbow-black {
 	width: 50px;
 	height: 50px;
-	background-image: url('https://file.wine/aoy.jpg');
+	background-image: url('/assets/global/rainbow-black.jpg');
 	background-size: 50px 50px;
 }
 
 #square-rainbow-white {
 	width: 50px;
 	height: 50px;
-	background-image: url('https://file.wine/59j.jpg');
+	background-image: url('/assets/global/rainbow-white.jpg');
 	background-size: 50px 50px;
 }
 

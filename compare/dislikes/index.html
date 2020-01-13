@@ -1,76 +1,103 @@
 <!DOCTYPE html>
 <html>
-   <head>
-       <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119417406-6"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'UA-119417406-6');
-    </script>
-      <title>shaz.lol - YouTube Video Dislike Comparison</title>
-      <meta name="title" content="YouTube Video Dislike Comparison">
-      <meta name="description" content="The best, lightest and transparent real-time like counter on the web. Compare any 2 video's dislike count updated every second">
-      <meta name="keywords" content="youtube, yt live, yt live count, live count, live sub count, live subscriber count, youtube live subscriber count, yt live sub count, yt live counts, youtube live counts, live counts, livecount, youtube live, live sub, subscriber count live, sub cout live, youtube live sub">
-      <meta name="robots" content="index, follow">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <meta name="language" content="English">
-      <meta name="author" content="Shaz">
-      <meta name="theme-color" content="#7289DA">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-      <link rel="shortcut icon" type="image/png" href="https://shaz.lol/assets/youtube_icon.png"/>
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-      <link rel="stylesheet" href="assets/css/odometer-custom.css" />
-      <link rel="stylesheet" href="assets/css/style.css?v=1.0" />
-   </head>
+   <head>   
+    <title>livecounts.io - YouTube Dislike Comparison</title>   
+    <meta name="title" content="livecounts.io - YouTube Live Dislike Comparison">	
+    <meta name="description" content="Livecounts is a simple way to compare any 2 videos like count, update in real-time!">	
+    <meta name="keywords" content="livecounts, livecounts.io, live view count, view count, live count, youtube view count, youtube live, youtube count, youtube live view count, youtube, youtube live, youtube count, like count, youtube like count, youtube live like, live like, live dislike count, dislike, dislike count, rewind 2018 vs baby">
+    <meta name="robots" content="index, follow">	
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">	<meta name="language" content="English">	
+    <meta name="author" content="Shaz">	<link rel="icon" href="/assets/global/youtube-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" />
+    <link rel="stylesheet" href="https://shaz.lol/assets/global/odometer.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.0">
+   </head> 
+
    <body>
-       <br>
-      <div class="row">
-         <div class="col s12 m5">
-            <div class="card m-b-0 m-t-20" id="card1">
-               <img id="image1" class="responsive-img" src="https://www.solidbackgrounds.com/images/1280x720/1280x720-rich-electric-blue-solid-color-background.jpg" width="944" height="778" style="max-height: 500px;">
-               <h4 id="title1" class="title display-6 m-b-15 m-t-10 center">let it load baby</h4>
-               <div style="position: relative; top: -70px; font-size:6rem" class="flow-text center">
-                    <div id="count1" class="odometer"></div><br><span style="position: relative; top: -90px; font-size:20px;">dislikes</span>
-               </div>
+
+        <div class="card card-header">
+            <div class="card-head d-flex justify-content-center">
+                <h1 class="header-text">Live Dislike Comparison</h1>
             </div>
-            <div class="center"><div class="input-field"><input id="search1" placeholder="QUERY or VIDEO ID or LINK" type="text" class="validate"></div>
-            <button id="searchbutton1" class="btn waves-effect waves-light" type="submit" name="action">Search
-                  <i class="fas fa-search"></i>
-                  </button>
+        </div>
+
+        <p></p> <!-- possible place for future ads -->
+
+        <div class="container">
+            <div class="row">
+                <div class="col s12 col-md-6">
+                    <div class="card m-b-0 m-t-20">
+                        <img class="thumbnail1 img-fluid" width="539" height="300" src="http://i3.ytimg.com/vi/-RZjoHj78fM/maxresdefault.jpg">
+                        <h4 class="text-truncate text-center title1">livecounts.io</h4>
+                        <div class="odometer odo1 d-flex justify-content-center main-odo"></div>
+                        <h6 class="text-center">Dislikes</h6>
+                    </div>
+                </div>
+                <div class="col s12 col-md-6">
+                        <div class="card m-b-0 m-t-20">
+                            <img class="thumbnail2 img-fluid" width="539" height="300" src="http://i3.ytimg.com/vi/-RZjoHj78fM/maxresdefault.jpg">
+                            <h4 class="text-truncate text-center title2">livecounts.io</h4>
+                            <div class="odometer odo2 d-flex justify-content-center main-odo"></div>
+                            <h6 class="text-center">Dislikes</h6>
+                        </div>
+                    </div>
+                 </div>
             </div>
-         </div>
-         <div class="col s12 m5">
-            <div class="card m-b-0 m-t-20" id="card1">
-               <img id="image2" class="responsive-img" src="https://www.solidbackgrounds.com/images/1280x720/1280x720-rich-electric-blue-solid-color-background.jpg" style="max-height: 500px;">
-               <h4 id="title2" class="title display-6 m-b-15 m-t-10 center">let it load baby</h4>
-               <div style="position: relative; top: -70px; font-size:6rem" class="flow-text center">
-                    <div id="count2" class="odometer"></div><br><span style="position: relative; top: -90px; font-size:20px;">dislikes</span>
-               </div>
-            </div>
-            <div class="center"><div class="input-field"><input id="search2" placeholder="QUERY or VIDEO ID or LINK" type="text" class="validate"></div>
-               <button id="searchbutton2" class="btn waves-effect waves-light" type="submit" name="action">Search
-               <i class="fas fa-search"></i>
-               </button>
-            </div>
-         </div>
-      </div>
-      </div>
-      <div class="col-12 col-md-4">
-         <div class="card" id="card2">
-            <div class="card-block">
-                <div style="font-size: 3rem;" class="center"><div id="count3" class="odometer"></div></div>
-                <h5 style="position: relative; top: -15px;" class="display-6 m-b-15 m-t-10 center">Difference</h5>
-            </div>
-         </div>
-      </div>
-      </div>
-      </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script src="assets/js/main.js?v=1.0"></script>
-      <script src="https://shaz.lol/assets/global/odometer.js"></script>
+        </div>
+
+        <p></p>
+
+        <div class="container">
+                <div class="row">
+                        <div class="col">
+                                <div class="input-group mb-1">
+                                    <input type="text" id="search1" class="form-control" placeholder="Query / Link" aria-label="Query / Link" aria-describedby="basic-addon2">
+                                    <button type="button" id="searchbutton1" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                    <div class="col">
+                            <div class="input-group mb-1">
+                                <input type="text" id="search2" class="form-control" placeholder="Query / Link" aria-label="Query / Link" aria-describedby="basic-addon2">
+                                <button type="button" id="searchbutton2" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                </div>
+
+                <p></p>
+
+                <div class="row">
+                        <div class="col s6 col-md-4 offset-md-4">
+                                <div class="card">
+                                    <div class="odometer d-flex justify-content-center difference-odo"></div>
+                                    <h6 class="text-center">Dislike Difference</h6>
+                                </div>
+                            </div>
+                </div>
+
+                <p></p>
+
+                        <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="chart"></div>
+                                </div>
+                            </div>
+
+                <div class="row">
+                    <div class="col s12">
+                        <div id="disqus_thread"></div>
+                    </div>
+                </div>
+        </div>
+
    </body>
+
+    <script src="https://shaz.lol/assets/global/odometer.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119417406-7"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="assets/js/main.js?v=2.06"></script>
+    <script src="assets/js/disqus.js?cache"></script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 </html>
