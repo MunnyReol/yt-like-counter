@@ -1,15 +1,29 @@
-var urlsplit = location.href.split("/")
-var user = "";
+var video1;
+var video2;
 
-if (!urlsplit[5]) {
-	user = "kJQP7kiw5Fk-RgKAFK5djSk";
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+        vars[key] = value
+    });
+    return vars
+  }
+
+  if (!getUrlVars()["v1"]) {
+	video1 = "IHNzOHi8sJs"; //dududududdudududud (not darude sandstorm tho)
 } else {
-	user = urlsplit[5];
+	video1 = getUrlVars()["v1"];
+}
+
+if (!getUrlVars()["v2"]) {
+	video2 = "2S24-y0Ij3Y"; //kill this love
+} else {
+	video2 = getUrlVars()["v2"];
 }
 
 var disqus_config = function () {
-    this.page.url = 'https://livecounts.io/live-view-count/compare/'+user;
-	this.page.identifier = user;
+    this.page.url = 'https://livecounts.io/yt-like-counter/compare/likes/?v1='+video1+'&v2='+video2;
+	this.page.identifier = video1+'-vs-'+video2;
 };
 
 (function() {

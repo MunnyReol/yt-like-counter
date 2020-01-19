@@ -1,15 +1,29 @@
-var urlsplit = location.href.split("/")
-var user = "";
+function getUrlVars() {
+	var vars = {};
+	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+		vars[key] = value
+	});
+	return vars
+  }
 
-if (!urlsplit[5]) {
-	user = "kJQP7kiw5Fk-RgKAFK5djSk";
+var video1 = "";
+var video2 = "";
+
+if (!getUrlVars()["v1"]) {
+	video1 = "YbJOTdZBX1g"; //rewind 2018
 } else {
-	user = urlsplit[5];
+	video1 = getUrlVars()["v1"]
+}
+
+if (!getUrlVars()["v2"]) {
+	video2 = "hSlb1ezRqfA"; //its everyday bro
+} else {
+	video2 = getUrlVars()["v2"]
 }
 
 var disqus_config = function () {
-    this.page.url = 'https://livecounts.io/live-view-count/compare/'+user;
-	this.page.identifier = user;
+    this.page.url = 'https://livecounts.io/yt-like-counter/compare/dislikes/?v1='+video1+'&v2='+video2;
+	this.page.identifier = video1+'-vs-'+video2;
 };
 
 (function() {

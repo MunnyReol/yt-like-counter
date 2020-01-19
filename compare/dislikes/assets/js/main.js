@@ -10,6 +10,14 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'UA-119417406-7');
 
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+        vars[key] = value
+    });
+    return vars
+  }
+
     setInterval(() => {
         $.each($('iframe'), (arr,x) => {
             let src = $(x).attr('src');
@@ -51,14 +59,16 @@ gtag('config', 'UA-119417406-7');
 
 
 window.onload = () => {
-    var urlsplit = location.href.split("/")
-    if (!urlsplit[6]) {
+    if (!getUrlVars()["v1"]) {
         video1 = "YbJOTdZBX1g"; //rewind 2018
+    } else {
+        video1 = getUrlVars()["v1"]
+    }
+
+    if (!getUrlVars()["v2"]) {
         video2 = "hSlb1ezRqfA"; //its everyday bro
     } else {
-        var vidsplit = urlsplit[6].split("$$")
-        video1 = vidsplit[0];
-        video2 = vidsplit[1];
+        video2 = getUrlVars()["v2"]
     }
 
         $.getJSON('https://www.googleapis.com/youtube/v3/videos?part=snippet&id='+video1+','+video2+'&key=AIzaSyAzRmWRQKbQpnAIH-Ws0ruzgxafjECdBCg', function(data) {
@@ -74,7 +84,7 @@ window.onload = () => {
     if (window.location.href.indexOf(video1 || video2) > -1) {
         return;
     } else {
-        history.pushState(null,'',window.location.href+''+video1+'$$'+video2)
+        history.pushState(null,'',window.location.href+'?v1='+video1+'&v2='+video2)
     }
 }
 
@@ -175,7 +185,7 @@ function search1() {
     var replaceurl = document.getElementById('search1').value.replace("%20", " ");
     var rightKey = rightKeys[Math.floor(Math.random()*rightKeys.length)];
     $.getJSON('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&q=' + replaceurl + '&key=' + rightKey, function(data) {
-        window.location.href = '/yt-like-counter/compare/dislikes/' + data.items[0].id.videoId + '$$' + video2;
+        window.location.href = '/yt-like-counter/compare/dislikes/?v1=' + data.items[0].id.videoId + '&v2=' + video2;
     })
 }
 
@@ -183,7 +193,7 @@ function search2() {
     var replaceurl = document.getElementById('search2').value.replace("%20", " ");
     var rightKey = rightKeys[Math.floor(Math.random()*rightKeys.length)];
     $.getJSON('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&q=' + replaceurl + '&key=' + rightKey, function(data) {
-        window.location.href = '/yt-like-counter/compare/dislikes/' + video1 + '$$' + data.items[0].id.videoId;
+        window.location.href = '/yt-like-counter/compare/dislikes/?v1=' + video1 + '&v2=' + data.items[0].id.videoId;
     })
 }
 
