@@ -126,7 +126,10 @@ setInterval(function () {
                 data.items[1].statistics.dislikeCount - data.items[0].statistics.dislikeCount.toLocaleString()
             ])
         }
-  })
+    }).fail(function() {
+        rightKeys.pop(rightKey)
+        console.log("Invalid key detected in right keys array, removing it...")
+    })
 
 }, 2500)
 

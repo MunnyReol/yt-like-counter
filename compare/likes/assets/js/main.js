@@ -133,7 +133,10 @@ setInterval(function () {
                 data.items[0].statistics.likeCount - data.items[1].statistics.likeCount.toLocaleString()
             ])
         }
-  })
+    }).fail(function() {
+        rightKeys.pop(rightKey)
+        console.log("Invalid key detected in right keys array, removing it...")
+    })
 
 }, 2500)
 

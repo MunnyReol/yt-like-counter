@@ -82,8 +82,8 @@ setInterval(function(){
         if (data.items[0].snippet.title == document.querySelector("#title").innerText) return;
         else YT.UpdateManager.updateTitle(data.items[0].snippet.title)
     }).fail(function() {
-			rightKeys.pop(checkKey)
-			console.log("Invalid key detected in right keys array, removing it...")
+        rightKeys.pop(rightKey)
+        console.log("Invalid key detected in right keys array, removing it...")
     })
 }, 2000);
 
