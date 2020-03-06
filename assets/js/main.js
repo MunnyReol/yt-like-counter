@@ -2,6 +2,7 @@ var YT = {};
 var rightKeys = [];
 var key = "";
 var video = "";
+var actualChannelId;
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -19,8 +20,8 @@ function getUrlVars() {
 function search() {
     var replaceurl = document.getElementById('search').value.replace("%20", " ");
     var rightKey = rightKeys[Math.floor(Math.random()*rightKeys.length)];
-    $.getJSON('https://www.googleapis.com/youtube/v3/search?part=id&maxResults=1&type=video&q=' + replaceurl + '&key=' + rightKey, function(data) {
-        window.location.href = '/yt-like-counter/?q=' + data.items[0].id.videoId;
+    $.getJSON('https://api.livecounts.io/yt_data?type=search&part=video&q='+replaceurl, function(data) {
+        window.location.href = '/yt-like-counter/?q='+data.id.videoId;
     })
 }
 
@@ -66,22 +67,23 @@ setInterval(function(){
 
     $.getJSON('https://www.googleapis.com/youtube/v3/videos?part=statistics,liveStreamingDetails,snippet&id='+video+'&key='+rightKey, function(data) {
         if (!data.items[0].liveStreamingDetails) {
-            var views = data.items[0].statistics.viewCount;
-            var likes = data.items[0].statistics.likeCount;
             var channelId = data.items[0].snippet.channelId;
-            var ratio = parseInt(views) / parseInt(likes);
-            if (localStorage.getItem('views' + channelId) == null) {
-                localStorage.setItem('likes' + channelId, parseInt(likes));
-                localStorage.setItem('views' + channelId, parseInt(views));
-            } else if (parseInt(localStorage.getItem('views' + channelId)) !== parseInt(views)) {
-                localStorage.setItem('views' + channelId, parseInt(views));
-                localStorage.setItem('likes' + channelId, parseInt(likes));
+            var views = parseInt(data.items[0].statistics.viewCount);
+            var likes = parseInt(data.items[0].statistics.likeCount);
+            var localLikeCount = parseInt(localStorage.getItem('likeCount-' + channelId))
+            var localViewCount = parseInt(localStorage.getItem('viewCount-' + channelId))
+            var ratio = views / likes;
+            
+            if (localLikeCount == undefined) {
+              localStorage.setItem('likeCount-' + channelId, likes);
             }
-            var localLikes = localStorage.getItem('likes' + channelId);
-            var finalRatio = ratio;
-            if (finalRatio < 1) finalRatio = 1;
-            var estimatedViews = parseInt(views) + parseInt((parseInt(likes) - localLikes) * finalRatio);
-            YT.UpdateManager.updateViews(estimatedViews)
+            
+            if (localViewCount != views) {
+              localStorage.setItem('viewCount-' + channelId, views);
+              localStorage.setItem('likeCount-' + channelId, likes);
+            }
+            var estViewCount = Math.round(views + (likes - localLikeCount) * ratio);
+            YT.UpdateManager.updateViews(estViewCount)
         } else {
             YT.UpdateManager.updateViews(data.items[0].liveStreamingDetails.concurrentViewers)
         }
@@ -93,12 +95,107 @@ setInterval(function(){
     }).fail(function() {
         rightKeys.pop(rightKey)
         console.log("Invalid key detected in right keys array, removing it...")
+        if (rightKeys.length == 0) {
+            $.getJSON('https://api.livecounts.io/yt_data?type=video&part=statistics,liveStreamingDetails&id='+video, function(data) {
+                if (!data.liveStreamingDetails) {
+                    var channelId = actualChannelId;
+                    var views = parseInt(data.statistics.viewCount);
+                    var likes = parseInt(data.statistics.likeCount);
+                    var localLikeCount = parseInt(localStorage.getItem('likeCount-' + channelId))
+                    var localViewCount = parseInt(localStorage.getItem('viewCount-' + channelId))
+                    var ratio = views / likes;
+                    
+                    if (localLikeCount == undefined) {
+                      localStorage.setItem('likeCount-' + channelId, likes);
+                    }
+                    
+                    if (localViewCount != views) {
+                      localStorage.setItem('viewCount-' + channelId, views);
+                      localStorage.setItem('likeCount-' + channelId, likes);
+                    }
+                    var estViewCount = Math.round(views + (likes - localLikeCount) * ratio);
+                    YT.UpdateManager.updateViews(estViewCount)
+                } else {
+                    YT.UpdateManager.updateViews(data.liveStreamingDetails.concurrentViewers)
+                }
+                YT.UpdateManager.updateLike(data.statistics.likeCount)
+                YT.UpdateManager.updateDislike(data.statistics.dislikeCount)
+                YT.UpdateManager.updateComment(data.statistics.commentCount)
+            })
+        }
     })
-}, 2000);
+}, 5000);
 
 window.onload = () => {
     YT.UrlManager.addVideo();
     YT.UrlManager.addTheme();
+
+    var rightKey = rightKeys[Math.floor(Math.random()*rightKeys.length)];
+
+    $.getJSON('https://www.googleapis.com/youtube/v3/videos?part=statistics,liveStreamingDetails,snippet&id='+video+'&key='+rightKey, function(data) {
+        if (!data.items[0].liveStreamingDetails) {
+            var channelId = data.items[0].snippet.channelId;
+            var views = parseInt(data.items[0].statistics.viewCount);
+            var likes = parseInt(data.items[0].statistics.likeCount);
+            var localLikeCount = parseInt(localStorage.getItem('likeCount-' + channelId))
+            var localViewCount = parseInt(localStorage.getItem('viewCount-' + channelId))
+            var ratio = views / likes;
+            
+            if (localLikeCount == undefined) {
+              localStorage.setItem('likeCount-' + channelId, likes);
+            }
+            
+            if (localViewCount != views) {
+              localStorage.setItem('viewCount-' + channelId, views);
+              localStorage.setItem('likeCount-' + channelId, likes);
+            }
+            var estViewCount = Math.round(views + (likes - localLikeCount) * ratio);
+            YT.UpdateManager.updateViews(estViewCount)
+        } else {
+            YT.UpdateManager.updateViews(data.items[0].liveStreamingDetails.concurrentViewers)
+        }
+        YT.UpdateManager.updateLike(data.items[0].statistics.likeCount)
+        YT.UpdateManager.updateDislike(data.items[0].statistics.dislikeCount)
+        YT.UpdateManager.updateComment(data.items[0].statistics.commentCount)
+        if (data.items[0].snippet.title == document.querySelector("#title").innerText) return;
+        else YT.UpdateManager.updateTitle(data.items[0].snippet.title)
+    }).fail(function() {
+        rightKeys.pop(rightKey)
+        console.log("Invalid key detected in right keys array, removing it...")
+        if (rightKeys.length == 0) {
+            $.getJSON('https://api.livecounts.io/yt_data?type=video&part=statistics,liveStreamingDetails&id='+video, function(data) {
+                if (!data.liveStreamingDetails) {
+                    var channelId = actualChannelId;
+                    var views = parseInt(data.statistics.viewCount);
+                    var likes = parseInt(data.statistics.likeCount);
+                    var localLikeCount = parseInt(localStorage.getItem('likeCount-' + channelId))
+                    var localViewCount = parseInt(localStorage.getItem('viewCount-' + channelId))
+                    var ratio = views / likes;
+                    
+                    if (localLikeCount == undefined) {
+                      localStorage.setItem('likeCount-' + channelId, likes);
+                    }
+                    
+                    if (localViewCount != views) {
+                      localStorage.setItem('viewCount-' + channelId, views);
+                      localStorage.setItem('likeCount-' + channelId, likes);
+                    }
+                    var estViewCount = Math.round(views + (likes - localLikeCount) * ratio);
+                    YT.UpdateManager.updateViews(estViewCount)
+                } else {
+                    YT.UpdateManager.updateViews(data.liveStreamingDetails.concurrentViewers)
+                }
+                YT.UpdateManager.updateLike(data.statistics.likeCount)
+                YT.UpdateManager.updateDislike(data.statistics.dislikeCount)
+                YT.UpdateManager.updateComment(data.statistics.commentCount)
+            })
+        }
+    })
+
+    $.getJSON('https://api.livecounts.io/yt_data?type=video&part=snippet&id='+video, function(data) {
+        YT.UpdateManager.updateTitle(data.snippet.title)
+        actualChannelId = data.snippet.channelId
+    })
 
     if (getUrlVars()["theme"] == "0") YT.ThemeManager.load(0)
     if (getUrlVars()["theme"] == "1") YT.ThemeManager.load(1)
