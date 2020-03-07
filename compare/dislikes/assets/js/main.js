@@ -70,6 +70,40 @@ window.onload = () => {
         video2 = getUrlVars()["v2"]
     }
 
+    var rightKey = rightKeys[Math.floor(Math.random()*rightKeys.length)];
+
+    $.getJSON('https://www.googleapis.com/youtube/v3/videos?part=statistics,snippet&id='+video1+','+video2+'&key='+rightKey, function(data) {
+        if (data.items[0].id == video1) {
+            YT.UpdateManager.updateDislikes(data.items[0].statistics.dislikeCount, data.items[1].statistics.dislikeCount, parseInt(data.items[0].statistics.dislikeCount - data.items[1].statistics.dislikeCount))
+
+            chart.series[0].addPoint([                   
+                (new Date()).getTime(),
+                data.items[0].statistics.dislikeCount - data.items[1].statistics.dislikeCount.toLocaleString()
+            ])
+
+        } else {
+            YT.UpdateManager.updateDislikes(data.items[1].statistics.dislikeCount, data.items[0].statistics.dislikeCount, parseInt(data.items[0].statistics.dislikeCount - data.items[1].statistics.dislikeCount))
+            chart.series[0].addPoint([                   
+                (new Date()).getTime(),
+                data.items[1].statistics.dislikeCount - data.items[0].statistics.dislikeCount.toLocaleString()
+            ])
+        }
+    }).fail(function() {
+        rightKeys.pop(rightKey)
+        console.log("Invalid key detected in right keys array, removing it...")
+
+        $.getJSON('https://api.livecounts.io/yt_data?type=video&part=statistics&id='+video1, function(data) {
+            $.getJSON('https://api.livecounts.io/yt_data?type=video&part=statistics&id='+video2, function(data2) {
+                YT.UpdateManager.updateDislikes(data.statistics.dislikeCount, data2.statistics.dislikeCount, parseInt(data.statistics.dislikeCount - data2.statistics.dislikeCount))
+
+                chart.series[0].addPoint([                   
+                    (new Date()).getTime(),
+                    data2.statistics.dislikeCount - data2.statistics.dislikeCount.toLocaleString()
+                ])
+            })
+        })
+    })
+
         $.getJSON('https://www.googleapis.com/youtube/v3/videos?part=snippet&id='+video1+','+video2+'&key=AIzaSyAzRmWRQKbQpnAIH-Ws0ruzgxafjECdBCg', function(data) {
             if (data.items[0].id == video1) {
                 YT.UpdateManager.updateTitle(data.items[0].snippet.title, data.items[1].snippet.title)
@@ -78,6 +112,15 @@ window.onload = () => {
             }
 
         YT.UpdateManager.updateThumbnail('https://i3.ytimg.com/vi/'+video1+'/maxresdefault.jpg', 'https://i3.ytimg.com/vi/'+video2+'/maxresdefault.jpg')
+    }).fail(function() {
+        if (rightKeys.length == 0) {
+            $.getJSON('https://api.livecounts.io/yt_data?type=video&part=snippet&id='+video1, function(data) {
+                $.getJSON('https://api.livecounts.io/yt_data?type=video&part=snippet&id='+video2, function(data2) {
+                    YT.UpdateManager.updateTitle(data.snippet.title, data2.snippet.title)
+                })
+            })
+            YT.UpdateManager.updateThumbnail('https://i3.ytimg.com/vi/'+video1+'/maxresdefault.jpg', 'https://i3.ytimg.com/vi/'+video2+'/maxresdefault.jpg')
+        }
     })
 
     if (window.location.href.indexOf(video1 || video2) > -1) {
@@ -138,9 +181,20 @@ setInterval(function () {
     }).fail(function() {
         rightKeys.pop(rightKey)
         console.log("Invalid key detected in right keys array, removing it...")
+
+        $.getJSON('https://api.livecounts.io/yt_data?type=video&part=statistics&id='+video1, function(data) {
+            $.getJSON('https://api.livecounts.io/yt_data?type=video&part=statistics&id='+video2, function(data2) {
+                YT.UpdateManager.updateDislikes(data.statistics.dislikeCount, data2.statistics.dislikeCount, parseInt(data.statistics.dislikeCount - data2.statistics.dislikeCount))
+
+                chart.series[0].addPoint([                   
+                    (new Date()).getTime(),
+                    data2.statistics.dislikeCount - data2.statistics.dislikeCount.toLocaleString()
+                ])
+            })
+        })
     })
 
-}, 2500)
+}, 5000)
 
 YT.UpdateManager = {
     updateThumbnail: function(a,b) {
@@ -179,6 +233,10 @@ function search1() {
     var rightKey = rightKeys[Math.floor(Math.random()*rightKeys.length)];
     $.getJSON('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&q=' + replaceurl + '&key=' + rightKey, function(data) {
         window.location.href = '/yt-like-counter/compare/dislikes/?v1=' + data.items[0].id.videoId + '&v2=' + video2;
+    }).fail(function() {
+        $.getJSON('https://api.livecounts.io/yt_data?type=search&part=video&q='+replaceurl, function(data) {
+            window.location.href = '/yt-like-counter/compare/dislikes/?v1=' + data.id.videoId + '&v2=' + video2;
+        })
     })
 }
 
@@ -187,6 +245,10 @@ function search2() {
     var rightKey = rightKeys[Math.floor(Math.random()*rightKeys.length)];
     $.getJSON('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&q=' + replaceurl + '&key=' + rightKey, function(data) {
         window.location.href = '/yt-like-counter/compare/dislikes/?v1=' + video1 + '&v2=' + data.items[0].id.videoId;
+    }).fail(function() {
+        $.getJSON('https://api.livecounts.io/yt_data?type=search&part=video&q='+replaceurl, function(data) {
+            window.location.href = '/yt-like-counter/compare/dislikes/?v1=' + video1 + '&v2=' + data.id.videoId;
+        })
     })
 }
 
