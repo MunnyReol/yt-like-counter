@@ -124,7 +124,7 @@ setInterval(function(){
             })
         }
     })
-}, 5000);
+}, 2500);
 
 window.onload = () => {
     YT.UrlManager.addVideo();
